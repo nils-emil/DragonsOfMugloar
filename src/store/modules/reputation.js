@@ -1,7 +1,11 @@
 import axios from 'axios'
 
 const state = {
-    reputation: []
+    reputation: {
+        people: 0,
+        state: 0,
+        underworld: 0
+    }
 };
 
 const mutations = {
@@ -17,9 +21,13 @@ const getters = {
 };
 
 const actions = {
-    initReputation: async ({commit}, gameId) => {
-        await axios.post(`https://www.dragonsofmugloar.com/api/v2/${gameId}/investigate/reputation`)
-            .then(response => commit('SET_REPUTATION', response.data))
+    initReputation: ({commit, getters, dispatch}) => {
+        axios.post(`https://www.dragonsofmugloar.com/api/v2/${getters.game.gameId}/investigate/reputation`)
+            .then(response => {
+                commit('SET_REPUTATION', response.data);
+                dispatch('initMessages', getters.game.gameId);
+                dispatch('addTurn');
+            })
     },
 };
 

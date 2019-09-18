@@ -17,21 +17,20 @@ const getters = {
 };
 
 const actions = {
-    initMessages: async ({commit}, gameId) => {
-        await axios.get(`https://www.dragonsofmugloar.com/api/v2/${gameId}/messages`)
+    initMessages: ({commit}, gameId) => {
+        axios.get(`https://www.dragonsofmugloar.com/api/v2/${gameId}/messages`)
             .then(response => response.data)
             .then(messages =>
                 commit('SET_MESSAGES', messages)
             )
 
     },
-    solveMessage: async ({dispatch, getters}, messageId) => {
+    solveMessage: ({dispatch, getters}, messageId) => {
         let gameId = getters.game.gameId;
-        await axios.post(`https://www.dragonsofmugloar.com/api/v2/${gameId}/solve/${messageId}`)
+        axios.post(`https://www.dragonsofmugloar.com/api/v2/${gameId}/solve/${messageId}`)
             .then(response => {
                     dispatch('initShop', gameId);
                     dispatch('initMessages', gameId);
-                    dispatch('initReputation', gameId);
                     dispatch('updateGame', response.data);
                     if (!response.data.success) {
                         dispatch('handleError', {"error": "Quest failed!"})

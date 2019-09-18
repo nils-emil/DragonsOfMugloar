@@ -17,18 +17,17 @@ const getters = {
 };
 
 const actions = {
-    initShop: async ({commit}, gameId) => {
+    initShop: ({commit}, gameId) => {
         axios.get(`https://www.dragonsofmugloar.com/api/v2/${gameId}/shop`)
             .then(response => commit('SET_SHOP', response.data))
     },
 
-    buyItem: async ({dispatch, getters}, itemId) => {
+    buyItem: ({dispatch, getters}, itemId) => {
         let gameId = getters.game.gameId;
-        await axios.post(`https://www.dragonsofmugloar.com/api/v2/${gameId}/shop/buy/${itemId}`)
+        axios.post(`https://www.dragonsofmugloar.com/api/v2/${gameId}/shop/buy/${itemId}`)
             .then(response => {
                     dispatch('initShop', gameId);
                     dispatch('initMessages', gameId);
-                    dispatch('initReputation', gameId);
                     dispatch('updateGame', response.data);
                     if (!response.data.shoppingSuccess) {
                         dispatch('handleError', {"error": "Failed to buy item!"});

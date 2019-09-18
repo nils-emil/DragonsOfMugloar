@@ -1,7 +1,10 @@
 <template>
     <div>
-        <button class="btn btn-secondary btn-init" v-on:click="initNewGame()">
+        <button class="btn btn-secondary btn-init mr-3" v-on:click="initNewGame()">
             Start a new game
+        </button>
+        <button class="btn btn-secondary btn-init" v-on:click="updateReputation()">
+            Run an investigation on your reputation
         </button>
         <div class="container container-fluid container-quest">
             <quests :messages="messages"></quests>
@@ -34,6 +37,9 @@
 
             initNewGame: function () {
                 this.$store.dispatch('initGame')
+            },
+            updateReputation: function () {
+                this.$store.dispatch('initReputation')
             }
         }
     }

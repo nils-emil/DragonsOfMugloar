@@ -2,7 +2,9 @@
     <div class="row">
         <template v-for="add in messages">
             <div class="col-md-6 col-lg-4 col-sm-12 mb-3"
+                 v-if="!add.adId.endsWith('=')"
                  :key="add.adId">
+<!--                BE returns some invalid adds that apparently dont exist, they usuallly end wiht '='-->
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-subtitle mb-2"><b>{{add.probability}}</b></h6>
