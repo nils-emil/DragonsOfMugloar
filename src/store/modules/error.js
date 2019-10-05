@@ -1,7 +1,7 @@
 import {ToastProgrammatic as Toast} from 'buefy'
 
 const actions = {
-    handleError: ({}, error) => {
+    handleError: (_, error) => {
         if (error.error) {
             Toast.open({
                 duration: 2000,
@@ -21,7 +21,7 @@ const actions = {
         }
     },
 
-    handleSuccessfulAction: ({}, message) => {
+    handleSuccessfulAction: (_, message) => {
         Toast.open({
             duration: 2000,
             queue: false,
